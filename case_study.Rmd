@@ -1,11 +1,12 @@
 ---
 title: "EDA"
-output: github_document
+output: html_document
 ---
 
 ```{r setup, include = FALSE}
 library(tidyverse)
 library(ggridges)
+library(leaflet)
 ```
 
 
@@ -44,24 +45,6 @@ nyc_airbnb %>%
 ```
 
 ```{r}
-nyc_airbnb %>%
-  group_by(host_id, host_name) %>%
-  summarise(total_listings = max(calculated_host_listings_count), .groups = “drop”) %>%
-  filter(total_listings > 1) %>%
-  arrange(desc(total_listings))
-```
-
-```{r}
-nyc_airbnb %>%
-  group_by(neighbourhood) %>%
-  summarise(mean_price = mean(price)) %>%
-  pivot_wider(
-    names_from = room_type,
-    values_from = mena_price
-  )
-```
-
-```{r}
 nyc_airbnb |>
   ggplot(aes(x = review_scores_location, y = price)) +
   geom_point()
@@ -86,18 +69,15 @@ nyc_airbnb |>
 ```
 
 
+
 ```{r}
 nyc_airbnb |>
-   filter(neighbourhood_group == "Manhattan",
-   price < 1000,
-   room_type == "Entire home/apt") |>
-  mutate(neighbourhood = fct_reorder(neighbourhood, price)) |>
-  ggplot(aes(x = neighbourhood, y = price)) +
-  geom_violin() + 
-  theme(axis.text.x = element_text(ange = 45, vjust = 1, hjust = 1))
-```
-
-```{r}
-
+  filter(
+    neighbourhood_group == "Manhattan",
+    price < 1000) |>
+  leaflet() |>
+  addTiles() |>
+  addMarkers(~lat, ~long)
+  
 ```
 
