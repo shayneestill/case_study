@@ -1,0 +1,36 @@
+---
+title: "EDA"
+output: github_document
+---
+
+```{r setup, include = FALSE}
+library(tidyverse)
+library(ggridges)
+```
+
+
+```{r}
+library(p8105.datasets)
+
+data(nyc_airbnb)
+```
+
+### Brainstorm questions
+
+*Where are max and min air bnb prices?
+  *what are average prices?
+*Where are prices going up and down over time?
+*What's the relationship between number of reviews and average review?
+*Does room type affect availability?
+*What's the location of the unit? 
+  *What area are popular?
+  *Popularity = number of units? Average price?
+*Are there repeat hosts?
+  *If so, what does that mean? 
+  
+```{r}
+str(nyc_airbnb)
+```
+
+
+
